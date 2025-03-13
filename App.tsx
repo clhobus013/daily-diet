@@ -15,9 +15,8 @@ export default function App() {
       <StatusBar
         barStyle="dark-content"
         backgroundColor="transparent"
-        translucent
       />
-      {fontsLoaded ? <Text>Teste</Text> :  <ActivityIndicator/>}
+      {fontsLoaded ? <Home/> : <ActivityIndicator/>}
     </ThemeProvider>
   );
 }
