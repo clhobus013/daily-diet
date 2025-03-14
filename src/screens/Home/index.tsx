@@ -5,6 +5,7 @@ import { HomeHeader } from "@components/HomeHeader";
 import { DietProgress } from "@components/DietProgress";
 import { Button } from "@components/Button";
 import { MealItem } from "@components/MealItem/intex";
+import { Plus } from "phosphor-react-native";
 
 export function Home() {
 
@@ -25,7 +26,10 @@ export function Home() {
             <DietProgress/>
 
             <Text>Refeicões</Text>
-            <Button/>
+            <Button>
+                <Button.Icon icon={Plus}/>
+                <Button.Title>Nova refeição</Button.Title>
+            </Button>
 
             <SectionList
                 sections={sections}

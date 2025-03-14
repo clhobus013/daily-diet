@@ -1,4 +1,4 @@
-import { Plus } from "phosphor-react-native";
+import { IconProps } from "phosphor-react-native";
 import { TouchableOpacity } from "react-native";
 import styled, { css } from "styled-components/native";
 
@@ -10,9 +10,12 @@ export const Container = styled(TouchableOpacity)`
     flex-direction: row;
     justify-content: center;
     align-items: center;
+
+    padding-horizontal: 24px;
+    paddign-vertical: 16px;
 `;
 
-export const Title = styled.Text`
+export const StyledTitle = styled.Text`
     ${({theme}) => css`
         color: ${theme.COLORS.WHITE};
         font-family: ${theme.FONT_FAMILY.BOLD};
@@ -20,7 +23,7 @@ export const Title = styled.Text`
     `}
 `;
 
-export const Icon = styled(Plus)`
+export const StyledIcon = styled.View<IconProps>`
     height: 18px;
     width: 18px;
     color: ${({theme}) => theme.COLORS.WHITE};
