@@ -1,27 +1,39 @@
 import { TextProps, TouchableOpacityProps } from "react-native";
-import { Container, StyledIcon, StyledTitle } from "./styles";
+import { ButtonVariantProps, Container, StyledIcon, StyledTitle } from "./styles";
 import { IconProps as IconPhosphorProps } from "phosphor-react-native";
+import { createContext, useContext } from "react";
 
-type ButtonProps = TouchableOpacityProps;
+type ButtonProps = TouchableOpacityProps & {
+    variant?: ButtonVariantProps;
+};
 
-function Button({children}: ButtonProps) {
+const ButtonVariantContext = createContext<ButtonVariantProps>('primary');
+
+function Button({variant = 'primary', children, ...rest}: ButtonProps) {
     return(
-        <Container>
-            {children}
-        </Container>
+        <ButtonVariantContext.Provider value={variant}>
+            <Container {...rest} variant={variant} selected={true}>
+                {children}
+            </Container>
+        </ButtonVariantContext.Provider>
     )
 }
 
-function Title({children}: TextProps) {
-    return <StyledTitle>{children}</StyledTitle>
+type TitleProps = TextProps & {
+    variant?: ButtonVariantProps;
 }
 
-type IconProps = {
+function Title({ children }: TitleProps) {
+    const variant = useContext(ButtonVariantContext);
+    return <StyledTitle variant={variant}>{children}</StyledTitle>;
+}
+
+type IconProps = IconPhosphorProps & {
     icon: React.ComponentType<IconPhosphorProps>;
 }
 
-function Icon({icon: Icon}: IconProps) {
-    return <StyledIcon as={Icon}/>
+function Icon({ icon: Icon, ...rest }: IconProps) {
+    return <StyledIcon as={Icon} {...rest}/>;
 }
 
 Button.Title = Title;
