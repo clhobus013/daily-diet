@@ -19,7 +19,7 @@ export function RadioInput() {
                     </Button.Title>
                 </Button>
 
-                <Button variant="success">
+                <Button variant="error">
                     <Button.Icon icon={Circle} weight="fill" color={theme.COLORS.RED_DARK} size="8px"/>
                     <Button.Title>
                         Não
