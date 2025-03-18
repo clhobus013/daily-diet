@@ -1,4 +1,5 @@
 import { ArrowUpRight } from "phosphor-react-native";
+import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { css } from "styled-components/native";
 
@@ -31,13 +32,14 @@ export const Text = styled.Text`
     `}
 `;
 
-export const Icon = styled(ArrowUpRight)`
-    color: ${({theme}) => theme.COLORS.GREEN_DARK};
-
-    width: 24px;
-    height: 24px; 
-
+export const IconButton = styled(TouchableOpacity)`
     position: absolute;
     top: 8px;
     right: 8px;
+`;
+
+export const Icon = styled(ArrowUpRight)`
+    color: ${({theme}) => theme.COLORS.GREEN_DARK};
+    width: 24px;
+    height: 24px; 
 `;

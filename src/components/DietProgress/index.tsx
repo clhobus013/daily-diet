@@ -1,9 +1,20 @@
-import { Container, Icon, Progress, Text } from "./styles";
+import { TouchableOpacityProps } from "react-native";
+import { Container, Icon, IconButton, Progress, Text } from "./styles";
+import { useNavigation } from "@react-navigation/native";
 
-export function DietProgress() {
+type Props = TouchableOpacityProps & {
+
+}
+
+export function DietProgress({...rest}: Props) {
+
+    const navigation = useNavigation();
+
     return(
         <Container>
-            <Icon/>
+            <IconButton {...rest} onPress={() => navigation.navigate("statistics")}>
+                <Icon/>
+            </IconButton>
             <Progress>90,86%</Progress>
             <Text>das refeições dentro da dieta</Text>
         </Container>
