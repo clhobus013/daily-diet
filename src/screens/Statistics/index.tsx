@@ -1,4 +1,3 @@
-import { StyleSheet, Text, View } from "react-native";
 import { Container, StatRow, Title } from "./styles";
 import { StatCard } from "@components/StatCard";
 
