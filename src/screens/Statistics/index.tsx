@@ -1,13 +1,20 @@
 import { Container, Content, Header, IconButton, ScoreDescription, ScoreValue, StatRow, Title } from "./styles";
 import { StatCard } from "@components/StatCard";
+import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native";
 
 
 export function Statistics() {
+  const navigation = useNavigation();
+
+  function handleGoBack() {
+    navigation.goBack();
+  }
+
   return (
     <Container>
       <Header>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleGoBack}>
           <IconButton/>
         </TouchableOpacity>
         <ScoreValue>90%</ScoreValue>

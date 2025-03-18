@@ -2,6 +2,7 @@ import { ArrowLeft } from "phosphor-react-native";
 import styled, { css } from "styled-components/native";
 
 export const Container = styled.View`
+  flex: 1;
   padding-top: 20px;
   background-color: ${({theme}) => theme.COLORS.GREEN_LIGHT};
 `;
@@ -35,10 +36,11 @@ export const ScoreDescription = styled.Text`
 `;
 
 export const Content = styled.View`
-  height: 100%;
+  flex: 1;
   gap: 12px;
   padding: 24px;
-  border-radius: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   background-color: ${({theme}) => theme.COLORS.WHITE};
 `;
   
