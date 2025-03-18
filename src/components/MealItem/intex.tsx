@@ -1,13 +1,19 @@
+import { TouchableOpacityProps } from "react-native";
 import { Container, Divider, MealCard, Status, Time, Title } from "./styles";
 
-export function MealItem() {
+type Props = TouchableOpacityProps & {
+    time: string;
+    title: string;
+}
+
+export function MealItem({time, title, ...rest}: Props) {
     return(
-        <Container>
-            <Time>12:00</Time>
+        <Container {...rest}>
+            <Time>{time}</Time>
             <Divider/>
 
             <MealCard>
-                <Title>Almoço</Title>
+                <Title>{title}</Title>
                 <Status/>
             </MealCard>
         </Container>

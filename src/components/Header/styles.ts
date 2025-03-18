@@ -1,3 +1,4 @@
+import { TouchableOpacity } from "react-native";
 import styled, {css} from "styled-components/native";
 
 export const Container = styled.View`
@@ -17,7 +18,8 @@ export const Title = styled.Text`
     text-align: center;
 `;
 
-export const IconButton = styled.TouchableOpacity`
+export const IconButton = styled(TouchableOpacity)`
+    z-index: 1;
     position: absolute;
     top: 40px;
     left: 24px;
