@@ -23,18 +23,23 @@ export function Home() {
         },
       ];
 
+    function handleNewMeal() {
+        navigation.navigate('mealForm');
+    }
+
     return(
         <Container>
             <HomeHeader/>
             <DietProgress/>
 
             <Text>Refeições</Text>
-            <Button>
+            <Button onPress={handleNewMeal}>
                 <Button.Icon icon={Plus}/>
                 <Button.Title>Nova refeição</Button.Title>
             </Button>
 
             <SectionList
+                style={{flex: 1}}
                 sections={sections}
                 keyExtractor={(item) => item}
                 renderItem={({item}) => (

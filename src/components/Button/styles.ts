@@ -1,4 +1,5 @@
 import { IconProps } from "phosphor-react-native";
+import { TouchableOpacity } from "react-native";
 import styled, { css } from "styled-components/native";
 
 export type ButtonVariantProps = 'primary' | 'secondary' | 'success' | 'error';
@@ -8,7 +9,7 @@ type Props = {
     selected: boolean
 }
 
-export const Container = styled.TouchableOpacity<{variant: Props['variant'], selected: Props['selected']}>`
+export const Container = styled(TouchableOpacity)<{variant: Props['variant'], selected: Props['selected']}>`
     flex: 1;
     max-height: 50px;
     background-color: ${({theme}) => theme.COLORS.GRAY_200};

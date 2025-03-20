@@ -4,10 +4,17 @@ import { MealTag } from "@components/MealTag";
 import { PencilSimpleLine, Trash } from "phosphor-react-native";
 import { useTheme } from "styled-components/native";
 import { Header } from "@components/Header";
+import { useNavigation } from "@react-navigation/native";
 
 export function MealDetails() {
 
+    const navigation = useNavigation();
+
     const theme = useTheme();
+
+    function handleEditMeal() {
+        navigation.navigate('mealForm');
+    }
 
     return (
         <Container>
@@ -24,7 +31,7 @@ export function MealDetails() {
                     <MealTag/>
                 </Details>
 
-                <Button>
+                <Button onPress={handleEditMeal}>
                     <Button.Icon icon={PencilSimpleLine} />
                     <Button.Title>Editar refeição</Button.Title>
                 </Button>
