@@ -1,10 +1,17 @@
 import { Container, Status, Title } from "./styles";
 
-export function MealTag() {
+type Props = {
+    isWithinDiet: boolean;
+}
+
+export function MealTag({isWithinDiet}: Props) {
+
+    const label = isWithinDiet ? "Dentro da dieta" : "Fora da dieta";
+
     return( 
         <Container>
-            <Status/>
-            <Title>dentro da dieta</Title>
+            <Status isWithinDiet={isWithinDiet}/>
+            <Title>{label}</Title>
         </Container>
     )
 }

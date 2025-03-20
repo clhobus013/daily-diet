@@ -9,7 +9,7 @@ type Props = {
     selected: boolean
 }
 
-export const Container = styled(TouchableOpacity)<{variant: Props['variant'], selected: Props['selected']}>`
+export const Container = styled(TouchableOpacity)<Props>`
     flex: 1;
     max-height: 50px;
     background-color: ${({theme}) => theme.COLORS.GRAY_200};
@@ -61,7 +61,7 @@ export const Container = styled(TouchableOpacity)<{variant: Props['variant'], se
     }}
 `;
 
-export const StyledTitle = styled.Text<{variant: Props['variant']}>`
+export const StyledTitle = styled.Text<Props>`
     ${({variant, theme}) => css`
         color: ${variant === 'primary' ? theme.COLORS.WHITE : theme.COLORS.GRAY_100};
         font-family: ${theme.FONT_FAMILY.BOLD};
