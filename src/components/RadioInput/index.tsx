@@ -1,30 +1,34 @@
 import { useTheme } from "styled-components/native";
 import { Circle } from "phosphor-react-native";
+
 import { Container, FormRadio, Label } from "./styles";
 
 import { Button } from "@components/Button";
+import { ButtonVariantProps } from "@components/Button/styles";
 
-export function RadioInput() {
+type Props = {
+    label: string;
+    options: {name: string, value: any, variant: ButtonVariantProps}[];
+    selectedValue: any;
+    onValueChange: (value: any) => void;
+}
 
+export function RadioInput({label, options, selectedValue, onValueChange}: Props) {
     const theme = useTheme();
+
     return (
         <Container>
-            <Label>Está dentro da dieta?</Label>
+            {label && <Label>{label}</Label>}
 
             <FormRadio>
-                <Button variant="success">
-                    <Button.Icon icon={Circle} weight="fill" color={theme.COLORS.GREEN_DARK} size="8px"/>
-                    <Button.Title>
-                        Sim
-                    </Button.Title>
-                </Button>
-
-                <Button variant="error">
-                    <Button.Icon icon={Circle} weight="fill" color={theme.COLORS.RED_DARK} size="8px"/>
-                    <Button.Title>
-                        Não
-                    </Button.Title>
-                </Button>
+                {options.map(option => (
+                    <Button key={option.name} variant={option.variant} selected={selectedValue === option.value} onPress={() => onValueChange(option.value)}>
+                        <Button.Icon icon={Circle} weight="fill" color={theme.COLORS.GREEN_DARK} size="8px"/>
+                        <Button.Title>
+                            {option.name}
+                        </Button.Title>
+                    </Button>
+                ))}
             </FormRadio>
         </Container>
     )

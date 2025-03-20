@@ -22,6 +22,9 @@ export const Container = styled(TouchableOpacity)<{variant: Props['variant'], se
     padding-horizontal: 24px;
     padding-vertical: 16px;
 
+    border-width: 1px;
+    border-color: transparent;
+
     ${({variant, selected, theme}) => {
         switch(variant) {
             case 'primary':
@@ -32,14 +35,12 @@ export const Container = styled(TouchableOpacity)<{variant: Props['variant'], se
                 return css`
                     background-color: ${theme.COLORS.WHITE};
                     border-color: ${theme.COLORS.GRAY_100};
-                    border-width: 1px;
                 `;
             case 'success':
                 if(selected) {
                     return css`
                         background-color: ${theme.COLORS.GREEN_LIGHT};
                         border-color: ${theme.COLORS.GREEN_DARK};
-                        border-width: 1px;
                     `;
                 }
 
@@ -51,7 +52,6 @@ export const Container = styled(TouchableOpacity)<{variant: Props['variant'], se
                     return css`
                         background-color: ${theme.COLORS.RED_LIGHT};
                         border-color: ${theme.COLORS.RED_DARK};
-                        border-width: 1px;
                     `; 
                 }
                 return css`
