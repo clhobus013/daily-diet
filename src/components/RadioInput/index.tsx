@@ -15,20 +15,22 @@ type Props = {
 
 export function RadioInput({label, options, selectedValue, onValueChange}: Props) {
     const theme = useTheme();
-
+    
     return (
         <Container>
             {label && <Label>{label}</Label>}
 
             <FormRadio>
-                {options.map(option => (
+                {options.map(option => {
+                    const color = option.variant === "success" ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK
+                    return(
                     <Button key={option.name} variant={option.variant} selected={selectedValue === option.value} onPress={() => onValueChange(option.value)}>
-                        <Button.Icon icon={Circle} weight="fill" color={theme.COLORS.GREEN_DARK} size="8px"/>
+                        <Button.Icon icon={Circle} weight="fill" color={color} size="8px"/>
                         <Button.Title>
                             {option.name}
                         </Button.Title>
                     </Button>
-                ))}
+                )})}
             </FormRadio>
         </Container>
     )
