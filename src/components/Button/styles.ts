@@ -9,8 +9,9 @@ type Props = {
     selected: boolean
 }
 
-export const Container = styled(TouchableOpacity)<{variant: Props['variant'], selected: Props['selected']}>`
+export const Container = styled(TouchableOpacity)<Props>`
     flex: 1;
+    height: 50px;
     max-height: 50px;
     background-color: ${({theme}) => theme.COLORS.GRAY_200};
     border-radius: 6px;
@@ -20,7 +21,9 @@ export const Container = styled(TouchableOpacity)<{variant: Props['variant'], se
     align-items: center;
 
     padding-horizontal: 24px;
-    padding-vertical: 16px;
+
+    border-width: 1px;
+    border-color: transparent;
 
     ${({variant, selected, theme}) => {
         switch(variant) {
@@ -32,14 +35,12 @@ export const Container = styled(TouchableOpacity)<{variant: Props['variant'], se
                 return css`
                     background-color: ${theme.COLORS.WHITE};
                     border-color: ${theme.COLORS.GRAY_100};
-                    border-width: 1px;
                 `;
             case 'success':
                 if(selected) {
                     return css`
                         background-color: ${theme.COLORS.GREEN_LIGHT};
                         border-color: ${theme.COLORS.GREEN_DARK};
-                        border-width: 1px;
                     `;
                 }
 
@@ -51,7 +52,6 @@ export const Container = styled(TouchableOpacity)<{variant: Props['variant'], se
                     return css`
                         background-color: ${theme.COLORS.RED_LIGHT};
                         border-color: ${theme.COLORS.RED_DARK};
-                        border-width: 1px;
                     `; 
                 }
                 return css`
@@ -61,7 +61,7 @@ export const Container = styled(TouchableOpacity)<{variant: Props['variant'], se
     }}
 `;
 
-export const StyledTitle = styled.Text<{variant: Props['variant']}>`
+export const StyledTitle = styled.Text<Props>`
     ${({variant, theme}) => css`
         color: ${variant === 'primary' ? theme.COLORS.WHITE : theme.COLORS.GRAY_100};
         font-family: ${theme.FONT_FAMILY.BOLD};

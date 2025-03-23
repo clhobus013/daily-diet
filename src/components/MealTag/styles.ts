@@ -1,5 +1,10 @@
-import { Circle } from "phosphor-react-native";
+import { Circle, IconProps } from "phosphor-react-native";
+import { ComponentType } from "react";
 import styled, {css} from "styled-components/native";
+
+type Props = {
+    isWithinDiet: boolean;
+}
 
 export const Container = styled.View`
     width: auto;
@@ -22,8 +27,8 @@ export const Title = styled.Text`
     `}
 `;
 
-export const Status = styled(Circle).attrs(({theme})=> ({
-    color: theme.COLORS.GREEN_DARK,
+export const Status = styled<ComponentType<IconProps & Props>>(Circle).attrs(({theme, isWithinDiet}) => ({
+    color: isWithinDiet ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK,
     weight: 'fill',
     size: '8px'
 }))``;

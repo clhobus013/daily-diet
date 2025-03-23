@@ -5,14 +5,15 @@ import { createContext, useContext } from "react";
 
 type ButtonProps = TouchableOpacityProps & {
     variant?: ButtonVariantProps;
+    selected?: boolean;
 };
 
 const ButtonVariantContext = createContext<ButtonVariantProps>('primary');
 
-function Button({variant = 'primary', children, ...rest}: ButtonProps) {
+function Button({variant = 'primary', selected = false, children, ...rest}: ButtonProps) {
     return(
         <ButtonVariantContext.Provider value={variant}>
-            <Container {...rest} variant={variant} selected={true}>
+            <Container {...rest} variant={variant} selected={selected}>
                 {children}
             </Container>
         </ButtonVariantContext.Provider>
@@ -25,7 +26,7 @@ type TitleProps = TextProps & {
 
 function Title({ children }: TitleProps) {
     const variant = useContext(ButtonVariantContext);
-    return <StyledTitle variant={variant}>{children}</StyledTitle>;
+    return <StyledTitle variant={variant} selected>{children}</StyledTitle>;
 }
 
 type IconProps = IconPhosphorProps & {
