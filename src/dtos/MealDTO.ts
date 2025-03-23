@@ -4,5 +4,5 @@ export type MealDTO = {
     description: string;
     date: Date;
     time: Date;
-    isWithinDiet: boolean | null;
+    isWithinDiet: boolean;
 }
