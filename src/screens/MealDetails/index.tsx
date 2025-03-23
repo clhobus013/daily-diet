@@ -1,30 +1,41 @@
-import { Button } from "@components/Button";
-import { Container, Content, Description, Details, Subtitle, Title } from "./styles";
-import { MealTag } from "@components/MealTag";
-import { PencilSimpleLine, Trash } from "phosphor-react-native";
-import { useTheme } from "styled-components/native";
-import { Header } from "@components/Header";
-import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { Alert } from "react-native";
-import { mealGetById } from "@storage/meal/mealGetById";
-import { AppError } from "src/@utils/AppError";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { useTheme } from "styled-components/native";
+import { PencilSimpleLine, Trash } from "phosphor-react-native";
+
 import { MealDTO } from "src/dtos/MealDTO";
+import { AppError } from "src/@utils/AppError";
+import { mealGetById } from "@storage/meal/mealGetById";
+import { mealRemoveById } from "@storage/meal/mealRemoveById";
+import { Container, Content, Description, Details, Subtitle, Title } from "./styles";
+
+import { Button } from "@components/Button";
+import { Header } from "@components/Header";
+import { MealTag } from "@components/MealTag";
+import { AlertModal } from "@components/AlertModal";
+
+type RouteParams = {
+    mealId: string;
+}
 
 export function MealDetails() {
     const [ meal, setMeal ] = useState<MealDTO | null>(null);
+    const [ showModal, setShowModal] = useState(false);
 
     const navigation = useNavigation();
-
+    const route = useRoute();
     const theme = useTheme();
 
+    const { mealId } = route.params as RouteParams;
+
     function handleEditMeal() {
-        navigation.navigate('mealForm');
+        navigation.navigate('mealForm', {mealId: meal!.id});
     }
 
     async function getMeal() {
         try {
-            const meal = await mealGetById('');
+            const meal = await mealGetById(mealId);
             setMeal(meal);
         } catch (error) {
             let message = "Não foi possível buscar as informações";
@@ -37,11 +48,32 @@ export function MealDetails() {
         }
     }
 
+    async function handleStorageMealRemove() {
+        try {
+
+            await mealRemoveById(meal!.id);
+            navigation.navigate('home');
+            
+        } catch (error) {
+            let message = "Não foi possível remover a refeição";
+
+            if(error instanceof AppError){
+                message = error.message;
+            }
+
+            Alert.alert("Exclusão da refeição", message);
+        } finally {
+            setShowModal(false);
+        }
+    }
+
+    function handleToggleModal() {
+        setShowModal(!showModal);
+    }
+
     useEffect(() => {
         getMeal();
-
-        console.log(meal);
-    }, [])
+    }, [mealId])
 
     return (
         <Container>
@@ -64,10 +96,12 @@ export function MealDetails() {
                         <Button.Title>Editar refeição</Button.Title>
                     </Button>
 
-                    <Button variant="secondary">
+                    <Button variant="secondary" onPress={handleToggleModal}>
                         <Button.Icon icon={Trash} color={theme.COLORS.GRAY_100}/>
                         <Button.Title>Excluir refeição</Button.Title>
                     </Button>
+
+                    <AlertModal visible={showModal} onCancel={handleToggleModal} onSuccess={handleStorageMealRemove}/>
                 </Content>
             )}
         </Container>
