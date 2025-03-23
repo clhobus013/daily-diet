@@ -26,7 +26,7 @@ type TitleProps = TextProps & {
 
 function Title({ children }: TitleProps) {
     const variant = useContext(ButtonVariantContext);
-    return <StyledTitle variant={variant}>{children}</StyledTitle>;
+    return <StyledTitle variant={variant} selected>{children}</StyledTitle>;
 }
 
 type IconProps = IconPhosphorProps & {

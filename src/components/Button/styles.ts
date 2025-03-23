@@ -11,6 +11,7 @@ type Props = {
 
 export const Container = styled(TouchableOpacity)<Props>`
     flex: 1;
+    height: 50px;
     max-height: 50px;
     background-color: ${({theme}) => theme.COLORS.GRAY_200};
     border-radius: 6px;
@@ -20,7 +21,6 @@ export const Container = styled(TouchableOpacity)<Props>`
     align-items: center;
 
     padding-horizontal: 24px;
-    padding-vertical: 16px;
 
     border-width: 1px;
     border-color: transparent;
