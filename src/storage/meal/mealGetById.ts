@@ -4,15 +4,18 @@ import { MealDTO } from "src/dtos/MealDTO";
 
 export async function mealGetById(id: string) {
     try {
-        const storage = await AsyncStorage.getItem(`${MEAL_COLLECTION}-${id}`);
-        const mealParsed: MealDTO = storage ? JSON.parse(storage) : null;
+        const storage = await AsyncStorage.getItem(`${MEAL_COLLECTION}`);
+        const mealsParsed: MealDTO[] = storage ? JSON.parse(storage) : [];
 
-        mealParsed.date = new Date(mealParsed.date);
-        mealParsed.time = new Date(mealParsed.time);
+        const mealsFiltered = mealsParsed.filter(meal => meal.id === id);
+        const meal = mealsFiltered.length > 0 ? mealsFiltered[0] : null;
 
-        console.log("MEAL STORAGE", mealParsed);
+        if (meal) {
+            meal.date = new Date(meal.date);
+            meal.time = new Date(meal.time);
+        }
 
-        return mealParsed;
+        return meal;
     } catch (error) {
         throw error;
     }
