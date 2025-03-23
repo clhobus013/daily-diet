@@ -1,6 +1,7 @@
 import styled, {css} from "styled-components/native";
 
 export const Overlay = styled.View`
+    background-color: rgba(0, 0, 0, 0.25);
     justify-content: center;
     align-items: center;
     flex: 1;
