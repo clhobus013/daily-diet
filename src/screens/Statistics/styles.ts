@@ -1,18 +1,22 @@
 import { ArrowLeft } from "phosphor-react-native";
 import styled, { css } from "styled-components/native";
 
-export const Container = styled.View`
+type Props = {
+  progress: number;
+}
+
+export const Container = styled.View<Props>`
   flex: 1;
   padding-top: 20px;
-  background-color: ${({theme}) => theme.COLORS.GREEN_LIGHT};
+  background-color: ${({progress, theme}) => progress > 50 ? theme.COLORS.GREEN_LIGHT: theme.COLORS.RED_LIGHT};
 `;
 
 export const Header = styled.View`
   padding: 24px;
 `;
 
-export const IconButton = styled(ArrowLeft)`
-  color: ${({theme}) => theme.COLORS.GREEN_DARK};
+export const IconButton = styled(ArrowLeft)<Props>`
+  color: ${({progress, theme}) => progress > 50 ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK};
 `;
 
 export const ScoreValue = styled.Text`
