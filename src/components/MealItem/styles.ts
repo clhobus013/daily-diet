@@ -1,6 +1,10 @@
 import { TouchableOpacity } from "react-native";
 import styled, {css} from "styled-components/native";
 
+type Props = {
+    isWithinDiet: boolean;
+}
+
 export const Container = styled(TouchableOpacity)`
     height: 50px;
     width: 100%;
@@ -34,11 +38,11 @@ export const Title = styled.Text`
     `}
 `;
 
-export const Status = styled.View`
+export const Status = styled.View<Props>`
     height: 14px;
     width: 14px;
     border-radius: 8px;    
-    background-color: ${({theme}) => theme.COLORS.GREEN_MID};  
+    background-color: ${({theme, isWithinDiet}) => isWithinDiet ? theme.COLORS.GREEN_MID : theme.COLORS.RED_MID};  
 `;
 
 export const Divider = styled.View`
