@@ -1,13 +1,29 @@
+import { ButtonVariantProps } from "@components/Button/styles";
 import styled, {css} from "styled-components/native";
 
-export const Card = styled.View`
+type Props = {
+    variant: ButtonVariantProps;
+}
+
+export const Card = styled.View<Props>`
     flex: 1;
     align-items: center;
 
     padding: 16px;
     
     border-radius: 8px;
-    background-color: ${({theme}) => theme.COLORS.GRAY_600};
+    background-color: ${({variant, theme}) => {
+        switch (variant) {
+            case 'success':
+                return theme.COLORS.GREEN_LIGHT;
+
+            case 'error':
+                return theme.COLORS.RED_LIGHT;
+        
+            default:
+                return theme.COLORS.GRAY_600;
+        }
+    }};
 `;
 
 export const Title = styled.Text`
@@ -24,4 +40,5 @@ export const Description = styled.Text`
         font-family: ${theme.FONT_FAMILY.REGULAR};
         font-size: ${theme.FONT_SIZE.SM}px;
     `}
+    text-align: center;
 `;

@@ -3,10 +3,14 @@ import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { css } from "styled-components/native";
 
-export const Container = styled.View`
+type Props = {
+    progress: number
+}
+
+export const Container = styled.View<Props>`
     width: 100%;
     height: 100px;
-    background-color: ${({theme}) => theme.COLORS.GREEN_LIGHT}
+    background-color: ${({progress, theme}) => progress > 50 ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT}
     justify-content: center;
     align-items: center;
     position: relative;
@@ -38,8 +42,8 @@ export const IconButton = styled(TouchableOpacity)`
     right: 8px;
 `;
 
-export const Icon = styled(ArrowUpRight)`
-    color: ${({theme}) => theme.COLORS.GREEN_DARK};
+export const Icon = styled(ArrowUpRight)<Props>`
+    color: ${({progress, theme}) => progress > 50 ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK};
     width: 24px;
     height: 24px; 
 `;

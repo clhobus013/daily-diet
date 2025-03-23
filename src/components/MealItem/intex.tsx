@@ -4,9 +4,10 @@ import { Container, Divider, MealCard, Status, Time, Title } from "./styles";
 type Props = TouchableOpacityProps & {
     time: string;
     title: string;
+    isWithinDiet: boolean;
 }
 
-export function MealItem({time, title, ...rest}: Props) {
+export function MealItem({time, title, isWithinDiet, ...rest}: Props) {
     return(
         <Container {...rest}>
             <Time>{time}</Time>
@@ -14,7 +15,7 @@ export function MealItem({time, title, ...rest}: Props) {
 
             <MealCard>
                 <Title>{title}</Title>
-                <Status/>
+                <Status isWithinDiet={isWithinDiet}/>
             </MealCard>
         </Container>
     )

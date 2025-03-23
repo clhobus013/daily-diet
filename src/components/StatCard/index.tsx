@@ -1,13 +1,20 @@
+import { ButtonVariantProps } from "@components/Button/styles";
 import { Card, Description, Title } from "./styles";
 
-export function StatCard() {
+type Props = {
+    title: string;
+    description: string;
+    variant?: ButtonVariantProps;
+}
+
+export function StatCard({ title, description, variant='primary' }: Props) {
     return (
-         <Card>
+         <Card variant={variant}>
             <Title>
-                22
+                {title}
             </Title>
             <Description>
-                melhor sequência de pratos dentro da dieta
+                {description}
             </Description>
         </Card>
     )
