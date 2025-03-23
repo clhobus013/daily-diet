@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Platform } from 'react-native';
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 
 import { MealDTO } from "src/dtos/MealDTO";
@@ -14,30 +14,49 @@ import { Button } from "@components/Button";
 import { Header } from "@components/Header";
 import { RadioInput } from "@components/RadioInput";
 import { DateTimeButton } from "@components/DateTimeButton";
+import { mealGetById } from "@storage/meal/mealGetById";
+
+type RouteParams = {
+    mealId?: string
+}
 
 export function MealForm() {
     const [isLoading, setIsLoading] = useState(false);
     const [meal, setMeal] = useState<MealDTO>({
-        id: '',
+        id: `${Date.now()}-${Math.random().toString(5)}`,
         name: '',
         description: '',
         date: new Date(),
         time: new Date(),
-        isWithinDiet: null
+        isWithinDiet: false
     });
-
+    
     const navigation = useNavigation();
+    const route = useRoute();
+    
+    const { mealId } = route.params as RouteParams || {};
 
+    async function storageMealGet() {
+        try {
+            const meal = await mealGetById(mealId!);
+            if(meal) {
+                setMeal(meal);
+            }
+        } catch (error) {
+            Alert.alert("Editar refeição", "Não foi possível carregar as informações");
+        }
+    }
+    
     async function handleSubmit() {
         try {
             setIsLoading(true);
 
-            if(!meal.name || !meal.description || meal.isWithinDiet === null ){
+            if(!meal.name || !meal.description ){
                 throw new AppError("Por favor, preencha todos os campos");
             }
 
-            navigation.navigate('mealDetails');
             await MealCreate(meal);
+            navigation.navigate('feedback', {isWithinDiet: meal.isWithinDiet});
             
         } catch (error) {
             let message = "Não foi possível salvar a refeição";
@@ -61,7 +80,7 @@ export function MealForm() {
                         setMeal(prevMeal => ({ ...prevMeal, date: selectedDate }));
                     }
                 },
-                mode: 'date'
+                mode: 'date',
             });
         }
     };
@@ -80,6 +99,12 @@ export function MealForm() {
             });
         }
     };
+
+    useEffect(() => {
+        if(!!mealId){
+            storageMealGet();
+        }
+    }, [])
 
     return (
         <Container>
@@ -127,7 +152,7 @@ export function MealForm() {
 
                 <Button variant="primary" onPress={handleSubmit} disabled={isLoading}>
                     <Button.Title>
-                        Cadastrar refeição
+                        { mealId ? "Salvar alterações" : "Cadastrar refeição" }
                     </Button.Title>
                 </Button>
             </Content>
